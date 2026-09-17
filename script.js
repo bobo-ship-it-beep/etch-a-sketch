@@ -23,8 +23,20 @@ for (let i = 0; i < totalSquares; i++) {
 
     //绑定画笔悬停效果
     square.addEventListener("mouseenter", () => {
-        square.style.backgroundColor = "#22c8ad";
-    })
+        let currentOpacity = Number(square.dataset.opacity) || 0;
+        if (currentOpacity < 1) {
+            if (currentOpacity === 0) {
+                const h = Math.floor(Math.random() * 360);
+                const s = Math.floor(Math.random() * 15) + 15;
+                const l = Math.floor(Math.random() * 15) + 65;
+                square.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
+            }
+
+            currentOpacity += 0.1;
+            square.dataset.opacity = currentOpacity;
+            square.style.opacity = currentOpacity;
+        }
+    });
     //将小格子附到container parent 里
     container.appendChild(square);
     }
