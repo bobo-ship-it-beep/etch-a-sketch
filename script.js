@@ -23,19 +23,15 @@ for (let i = 0; i < totalSquares; i++) {
 
     //绑定画笔悬停效果
     square.addEventListener("mouseenter", () => {
-        let currentOpacity = Number(square.dataset.opacity) || 0;
-        if (currentOpacity < 1) {
-            if (currentOpacity === 0) {
-                const h = Math.floor(Math.random() * 360);
-                const s = Math.floor(Math.random() * 15) + 15;
-                const l = Math.floor(Math.random() * 15) + 65;
-                square.style.backgroundColor = `hsl(${h}, ${s}%, ${l}%)`;
-            }
+        // 1. 瞬间点亮火苗颜色（橙红色）
+        square.style.backgroundColor = "#ff4500"; 
+        square.style.transition = "none"; // 划过时立刻变亮
 
-            currentOpacity += 0.1;
-            square.dataset.opacity = currentOpacity;
-            square.style.opacity = currentOpacity;
-        }
+        // 2. 800毫秒后平滑熄灭
+        setTimeout(() => {
+            square.style.backgroundColor = "transparent";
+            square.style.transition = "background-color 0.6s ease";
+        }, 800);
     });
     //将小格子附到container parent 里
     container.appendChild(square);
